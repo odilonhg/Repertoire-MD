@@ -1,14 +1,11 @@
 import os
 import logging
-from pickle import *
+f_log = "log.txt"
 
-fichier_log = 'log.txt'
-fichier_repertoire = 'MD_repertoire'
-
-if os.path.exists (fichier_log) == False:
+if os.path.exists (f_log) == False:
     
     logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
-    logging.info ('Le programme a été ouvert pour la 1ère fois !\n')
+    logging.info ('Bienvenue dans le Repertoire MD !\n')
     
     from depart import depart
     depart()

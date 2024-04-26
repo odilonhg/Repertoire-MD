@@ -1,33 +1,61 @@
+from lecture_ecriture import joyau
 import sys
 import logging
 
 def choix():
+    global joyau
     
-    print ('--- MD_Répertoire ---\n')
+    print ("--- Répertoire MD ---\n")
     
-    print ('1. Gérer les contacts')
-    print ('2. Gérer les favoris')
-    print ('3. Options')
-    print ('4. Arrêter\n')
+    print ("1. Gérer les contacts")
+    print ("2. Gérer les favoris")
+    print ("3. Options")
+    print ("4. Arrêter\n")
     
-    choice = input ('Choix : ')
+    choice = input ("Choix : ")
     
-    if choice == '1':
-        from a_contacts.choix_c import choix_c
-        return choix_c()
-    
-    elif choice == '2':
-        from b_favoris.choix_f import choix_f
-        return choix_f()
-    
-    elif choice == '3':
-        from c_options.choix_o import choix_o
-        return choix_o()
-    
-    elif choice == '4':
-        logging.info('FERMETURE PROGRAMME\n')
-        sys.exit('Fermeture du programme')
-    
-    else:
-        print ('\nChoix impossible...\n')
-        return choix()
+    match choice:
+        
+        case "1":
+            from c_choix import c_choix
+            return c_choix()
+        
+        case "2":
+            from f_choix import f_choix
+            return f_choix()
+        
+        case "3":
+            from o_choix import o_choix
+            return o_choix()
+        
+        case "4":
+            logging.info("FERMETURE PROGRAMME\n")
+            sys.exit("Fermeture du programme")
+        
+        case "13":
+            print ("\nTu m\'as trouvé...")
+            print ("Moi, c'est JoyO !\n")
+            logging.info("JOYO TROUVE !\n")
+            
+            match joyau:
+                
+                case 0:
+                    print ("Voici un joyau secret, trouves les 2 autres pour débloquer la fonction spéciale !\n")
+                case 1:
+                    print ("Voilà mon joyau secret, trouves le dernier pour débloquer la fonction spéciale !\n")
+                case 2:
+                    print ("Woaw, tu nous as tous trouvé !\n")
+                    print ("Voilà mon joyau secret, pour accéder à la fonction spéciale, tapes \"CodeS\" ici !\n")
+                
+            joyau += 1
+            
+            return choix()
+        
+        case "CodeS":
+            print ("Bien joué !\n")
+            from o_fonction_speciale import o_fonction_speciale
+            return o_fonction_speciale()
+            
+        case _:
+            print ("\nChoix impossible...\n")
+            return choix()
