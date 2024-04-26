@@ -1,215 +1,120 @@
 from pickle import *
-import os
+import logging
+
+fichier_repertoire = 'MD_repertoire'
+
+rep = open ('MD_repertoire', 'rb')
+dico = load(rep)
+rep.close()
 
 def modifier_c():
     
-    fichier_repertoire = 'MD_repertoire'
-
-    if os.path.exists (fichier_repertoire):
-        
-        rep = open ('MD_repertoire', 'rb')
-        dico = load(rep)
-        rep.close()
+    global fichier_repertoire, dico
     
-        print ('\n--- Modification de Contact ---\n')
-        print ('1. Modifier le nom')
-        print ('2. Modifier le prénom')
-        print ('3. Modifier le numéro de téléphone')
-        print ('4. Modifier la date de naissance\n')
+    print ('\n--- Modification de Contact ---\n')
+    print ('1. Modifier le nom')
+    print ('2. Modifier le prénom')
+    print ('3. Modifier la date de naissance')
+    print ('4. Modifier le numéro de téléphone')
+    print ('5. Modifier l\'adresse email')
+    print ('6. Retour à la Gestion des Contacts\n')
     
-        choice = input ('Choix : ')
+    choice = input ('Choix : ')
     
-        def modifier_nom():
+    if choice == '6':
+        from a_contacts.choix_c import choix_c
+        return choix_c()
         
-            contact_recherche = input ('\nDonnez le nom ou le prénom du contact : ')
+    contact = input ('\nDonnez le nom ou le prénom du contact : ').upper()
         
-            for i in range(len(dico.keys())):
-                
-                nom = dico[i]['nom'][0]
-                prenom = dico[i]['nom'][1]
-        
-                if contact_recherche.lower() == nom.lower() or contact_recherche.lower() == prenom.lower():
+    for indice, contacts in dico.items():
             
-                    nom = input (f'\nSaisir le nouveau nom de {nom} {prenom} : ').upper()
-                    prenom = dico[i]['nom'][1]
-                    cle = (nom, prenom)
-                    num = dico[i]['num']
-                    anniv = dico[i]['anniv']
-                    anniv2 = dico[i]['anniv2']
-                    favori = dico[i]['favori']
-                
-                    dico[i] = {'nom': cle, 'num': num, 'anniv': anniv, 'anniv2': anniv2, 'favori': favori}
-                    
-                    rep = open ('MD_repertoire', 'wb')
-                    dump (dico, rep)
-                    rep.close()
-                    
-                    print (f'\nLe contact {nom} {prenom} a été modifié !\n')
-                    from choix import choix
-                    return choix()
+        nom = contacts.get ('nom').upper()
+        prenom = contacts.get ('prenom').upper()
         
+        jour = contacts.get ('jour', None)
+        mois = contacts.get ('mois', None)
+        mois2 = contacts.get ('mois2', None)
+        annee = contacts.get ('annee', None)
+        num = contacts.get ('num', None)
+        email = contacts.get ('email', None)
+        favori = contacts.get ('favori', False)
+            
+        if contact == nom or contact == prenom:
+            prenom = contacts.get ('prenom').capitalize()
+            
+            if choice == '1':
+                nom = input (f'\nSaisir le nouveau nom de {nom} {prenom} : ').upper()
+            
+            elif choice == '2':
+                prenom = input (f'\nSaisir le nouveau prénom de {nom} {prenom} : ').capitalize()
+            
+            elif choice == '3':
+                jour = input (f'\nSaisir le jour de naissance de {nom} {prenom} : ')
+                mois_c = int (input (f'\nSaisir le mois de naissance de {nom} {prenom} : '))
+                annee = input (f'\nSaisir l\'année de naissance de {nom} {prenom} : ')
+                
+                mois_nombre = {
+                    1: '01',
+                    2: '02',
+                    3: '03',
+                    4: '04',
+                    5: '05',
+                    6: '06',
+                    7: '07',
+                    8: '08',
+                    9: '09',
+                    10: '10',
+                    11: '11',
+                    12: '12'
+                }
+                
+                mois_lettre = {
+                    1: 'Janvier',
+                    2: 'Février',
+                    3: 'Mars',
+                    4: 'Avril',
+                    5: 'Mai',
+                    6: 'Juin',
+                    7: 'Juillet',
+                    8: 'Août',
+                    9: 'Septembre',
+                    10: 'Octobre',
+                    11: 'Novembre',
+                    12: 'Décembre'
+                }
+                
+                mois = mois_nombre[mois_c]
+                mois2 = mois_lettre[mois_c]
+                
+            
+            elif choice == '4':
+                num = input (f'\nSaisir le nouveau numéro de téléphone de {nom} {prenom} : ')
+            
+            elif choice == '5':
+                email = input (f'\nSaisir la nouvelle adresse email de {nom} {prenom} : ')
+            
             else:
+                print ('\nChoix impossible !')
+                return modifier_c()
             
-                print ('\nAucun contact trouvé.\n')
-                from choix import choix
-                return choix()
+            choice = 'NONE'
+            
+            dico[indice] = {'nom': nom, 'prenom': prenom, 'jour': jour, 'mois': mois, 'mois2': mois2, 'annee': annee, 'num': num, 'email': email, 'favori': favori}
+            
+            rep = open ('MD_repertoire', 'wb')
+            dump (dico, rep)
+            rep.close()
+            
+            rep = open ('MD_repertoire', 'rb')
+            dico = load(rep)
+            rep.close()
+            
+            print (f'\nLe contact {nom} {prenom} a été modifié !')
+            logging.info (f'Modification du contact {nom} {prenom}\n')
+            from a_contacts.choix_c import choix_c
+            return choix_c()
     
-        def modifier_prenom():
-            
-            contact_recherche = input ('\nDonnez le nom ou le prénom du contact : ')
-            
-            for i in range (len(dico.keys())):
-                
-                nom = dico[i]['nom'][0]
-                prenom = dico[i]['nom'][1]
-                
-                if contact_recherche.lower() == nom.lower() or contact_recherche.lower() == prenom.lower():
-                
-                    nom = dico[i]['nom'][0]
-                    prenom = input (f'\nSaisir le nouveau prénom de {nom} {prenom} : ').capitalize()
-                    cle = (nom, prenom)
-                    num = dico[i]['num']
-                    anniv = dico[i]['anniv']
-                    anniv2 = dico[i]['anniv2']
-                    favori = dico[i]['favori']
-                    
-                    dico[i] = {'nom': cle, 'num': num, 'anniv': anniv, 'anniv2': anniv2, 'favori': favori}
-                    
-                    rep = open ('MD_repertoire', 'wb')
-                    dump (dico, rep)
-                    rep.close()
-                    
-                    print (f'\nLe contact {nom} {prenom} a été modifié !\n')
-                    from choix import choix
-                    return choix()
-            
-            else:
-            
-                print ('\nAucun contact trouvé.\n')
-                from choix import choix
-                return choix()
-            
-        def modifier_num():
-            
-            contact_recherche = input ('\nDonnez le nom ou le prénom du contact : ')
-            
-            for i in range (len(dico.keys())):
-                
-                nom = dico[i]['nom'][0]
-                prenom = dico[i]['nom'][1]
-                
-                if contact_recherche.lower() == nom.lower() or contact_recherche.lower() == prenom.lower():
-                
-                    cle = (nom, prenom)
-                    num = input (f'\nSaisir le nouveau numéro de téléphone de {nom} {prenom} : ')
-                    anniv = dico[i]['anniv']
-                    anniv2 = dico[i]['anniv2']
-                    favori = dico[i]['favori']
-                    
-                    dico[i] = {'nom': cle, 'num': num, 'anniv': anniv, 'anniv2': anniv2, 'favori': favori}
-                    
-                    rep = open ('MD_repertoire', 'wb')
-                    dump (dico, rep)
-                    rep.close()
-                    
-                    print (f'\nLe contact {nom} {prenom} a été modifié !\n')
-                    from choix import choix
-                    return choix()
-                
-            else:
-                
-                print ('\nAucun contact trouvé.\n')
-                from choix import choix
-                return choix()
-            
-        def modifier_anniv():
-            
-            contact_recherche = input ('\nDonnez le nom ou le prénom du contact : ')
-            
-            for i in range (len(dico.keys())):
-                
-                nom = dico[i]['nom'][0]
-                prenom = dico[i]['nom'][1]
-                
-                if contact_recherche.lower() == nom.lower() or contact_recherche.lower() == prenom.lower():
-                
-                    cle = (nom, prenom)
-                    num = dico[i]['num']
-                    
-                    jour_contact = input (f'\nSaisir le jour de naissance de {nom} {prenom} : ')
-                    mois_contact = int (input ('Saisir son mois de naissance : '))
-                    annee_contact = input ('Saisir son année de naissance : ')
-        
-                    mois_nombre = {
-                        1: '01',
-                        2: '02',
-                        3: '03',
-                        4: '04',
-                        5: '05',
-                        6: '06',
-                        7: '07',
-                        8: '08',
-                        9: '09',
-                        10: '10',
-                        11: '11',
-                        12: '12'
-                    }
-        
-                    mois_lettre = {
-                        1: 'Janvier',
-                        2: 'Février',
-                        3: 'Mars',
-                        4: 'Avril',
-                        5: 'Mai',
-                        6: 'Juin',
-                        7: 'Juillet',
-                        8: 'Août',
-                        9: 'Septembre',
-                        10: 'Octobre',
-                        11: 'Novembre',
-                        12: 'Décembre'
-                    }
-        
-                    anniv = (f'{jour_contact}-{mois_nombre[mois_contact]}-{annee_contact}')
-                    anniv2 = (f'{jour_contact} {mois_lettre[mois_contact]} {annee_contact}')
-                    favori = dico[i]['favori']
-                    
-                    dico[i] = {'nom': cle, 'num': num, 'anniv': anniv, 'anniv2': anniv2, 'favori': favori}
-                    
-                    rep = open ('MD_repertoire', 'wb')
-                    dump (dico, rep)
-                    rep.close()
-                    
-                    print (f'\nLe contact {nom} {prenom} a été modifié !\n')
-                    from choix import choix
-                    return choix()
-                
-            else:
-            
-                print ('\nAucun contact trouvé.\n')
-                from choix import choix
-                return choix()
-            
-        if choice == '1':
-            return modifier_nom()
-        
-        elif choice == '2':
-            return modifier_prenom()
-        
-        elif choice == '3':
-            return modifier_num()
-            
-        elif choice == '4':
-            return modifier_anniv()
-        
-        else:
-            
-            print ('\nChoix Impossible !\n')
-            from choix import choix
-            return choix()
-
-    else:
-        
-        print ('\nAucun contact trouvé.\n')
-        from choix import choix
-        return choix()
+    print ('\nAucun contact trouvé !')
+    from a_contacts.choix_c import choix_c
+    return choix_c()

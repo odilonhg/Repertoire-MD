@@ -7,7 +7,7 @@ rep = open ('MD_repertoire', 'rb')
 dico = load (rep)
 rep.close()
 
-def rechercher_c():
+def rechercher_f():
     
     global choice
     
@@ -21,43 +21,42 @@ def rechercher_c():
     choice = input ('Choix : ')
     
     if choice == '1':
-        return rechercher_contact()
+        return rechercher_favori()
     
     elif choice == '2':
-        return rechercher_contact()
+        return rechercher_favori()
     
     elif choice == '3':
-        return rechercher_contact()
+        return rechercher_favori()
     
     elif choice == '4':
-        from a_contacts.choix_c import choix_c
-        return choix_c()
+        from b_favoris.choix_f import choix_f
+        return choix_f()
     
     else:
         print('\nChoix impossible !\n')
-        return rechercher_c()
+        return rechercher_f()
 
-def rechercher_contact():
+def rechercher_favori():
     
     global choice, dico
     
     if choice == '1':
-        contact = input ('\nSaisir le prénom ou le nom de famille du contact à trouver : ').upper()
+        contact = input ('\nSaisir le prénom ou le nom de famille du favori à trouver : ').upper()
     
     elif choice == '2':
-        contact = input ('\nSaisir le numéro de téléphone du contact à trouver : ')
+        contact = input ('\nSaisir le numéro de téléphone du favori à trouver : ')
     
     elif choice == '3':
-        contact = input ('\nSaisir l\'adresse email du contact à trouver : ')
+        contact = input ('\nSaisir l\'adresse email du favori à trouver : ')
     
     choice = 'NONE'
     
-    print ('\n--- Contact/s Trouvé/s ---')
-    print ('* = contacts favoris')
+    print ('\n--- Favori/s Trouvé/s ---')
     
-    contact_trouve = 0
+    favori_trouve = 0
     
-    logging.info (f'Recherche: {contact}\n')
+    logging.info (f'Recherche favori: {contact}\n')
     
     for indice, contacts in dico.items():
         
@@ -72,26 +71,24 @@ def rechercher_contact():
         favori = contacts.get ('favori', False)
         
         if contact == nom or contact == prenom or contact == num or contact == email:
-            
             if favori == True:
-                print (f'\n| * {nom} {prenom}')
-            else:
+                
                 print (f'\n|   {nom} {prenom}')
+                
+                if jour is not None:
+                    print (f'|   {jour} / {mois} / {annee}')
+                if num is not None:
+                    print (f'|   {num}')
+                if email is not None:
+                    print (f'|   {email}')
             
-            if jour is not None:
-                print (f'|   {jour} / {mois} / {annee}')
-            if num is not None:
-                print (f'|   {num}')
-            if email is not None:
-                print (f'|   {email}')
-            
-            contact_trouve += 1
-    
-    if contact_trouve != 0:
-        from a_contacts.choix_c import choix_c
-        return choix_c()
+                favori_trouve += 1
+                
+    if favori_trouve != 0:
+        from b_favoris.choix_f import choix_f
+        return choix_f()
     
     else:
         print ('\nAucun contact trouvé !')
-        from a_contacts.choix_c import choix_c
-        return choix_c()
+        from b_favoris.choix_f import choix_f
+        return choix_f()

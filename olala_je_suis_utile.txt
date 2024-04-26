@@ -1,0 +1,14 @@
+Tu dois me déplacer là : E:\Lycée (1e)\NSI\0_PROJETS\0_REPERTOIRE\V4\V4.00\0_repertoire\c_options\fs
+
+En gros:
+
+	-Vas dans c_options
+	-Puis dans fs
+	-Mets moi dedans
+	-Appuies sur ENTREE dans la console !
+
+AIDES POUR APRES:
+
+	-Retournes dans c_options
+	-Supprimes la fonction
+	-Appuies sur ENTREE dans la console !

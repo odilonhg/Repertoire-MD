@@ -1,41 +1,38 @@
 from pickle import *
-import os
+import logging
 
 def supprimer_f():
     
-    fichier_repertoire = 'MD_repertoire'
-
-    if os.path.exists (fichier_repertoire):
+    rep = open ('MD_repertoire', 'rb')
+    dico = load(rep)
+    rep.close()
+    
+    contact = input ('\nDonnez le nom ou le prénom du contact à supprimer des favoris : ').upper()
+    
+    for indice, contacts in dico.items():
         
-        rep = open ('MD_repertoire', 'rb')
-        dico = load(rep)
-        rep.close()
+        nom = contacts.get ('nom').upper()
+        prenom = contacts.get ('prenom').upper()
+        favori = contacts.get ('favori')
         
-        contact_recherche = input('\nDonnez le nom ou le prénom du contact à supprimer de vos favoris : ')
-        
-        for i in range (len(dico.keys())):
+        if contact == nom or contact == prenom:
             
-            nom = dico[i]['nom'][0]
-            prenom = dico[i]['nom'][1]
+            if favori == False:
+                print (f'\nLe contact {nom} {prenom} est déjà un contact non-favori !')
+                from b_favoris.choix_f import choix_f
+                return choix_f()
             
-            if contact_recherche.lower() == nom.lower() or contact_recherche.lower() == prenom.lower():
-                
-                dico[i]['favori'] = 'False'
-                
-                rep = open ('MD_repertoire', 'wb')
-                dump (dico, rep)
-                rep.close()
-                
-                print (f'\nLe contact {nom} {prenom} à été supprimé des favoris !\n')
-                from choix import choix
-                return choix()
-        
-        print ('\nAucun contact trouvé.\n')
-        from choix import choix
-        return choix()
-        
-    else:
-        
-        print ('\nAucun contact trouvé.\n')
-        from choix import choix
-        return choix()
+            dico[indice]['favori'] = False
+            
+            rep = open ('MD_repertoire', 'wb')
+            dump (dico, rep)
+            rep.close()
+            
+            print (f'\nLe contact {nom} {prenom} à été supprimé des favoris !')
+            logging.info (f'SUPPRESSION FAVORI: {nom} {prenom}\n')
+            from b_favoris.choix_f import choix_f
+            return choix_f()
+    
+    print ('\nAucun contact trouvé !')
+    from b_favoris.choix_f import choix_f
+    return choix_f()
