@@ -1,4 +1,5 @@
 import logging
+import os
 
 j1 = ""
 j2 = ""
@@ -69,8 +70,9 @@ def verifier_victoire(grille, joueur):
 def j_puissance_4():
     global j1, j2
     
-    j1 = input ("Joueur 1, saisissez votre nom : ")
-    j2 = input ("Joueur 2, saisissez votre nom : ")
+    j1 = input ("Joueur 1, saisissez votre nom : ").capitalize ()
+    os.system ("cls")
+    j2 = input ("Joueur 2, saisissez votre nom : ").capitalize ()
     print ()
     grille = creer_grille()
     ligne1 = ['1', '2', '3', '4', '5', '6', '7']
@@ -80,6 +82,7 @@ def j_puissance_4():
     logging.info ("LANCEMENT JEU: Le Puissance 4\n")
 
     while True:
+        os.system ("cls")
         joueur = joueurs[tour % 2]
         afficher_grille(ligne1, grille)
         
@@ -91,10 +94,9 @@ def j_puissance_4():
                     joueur = j1
                 elif joueur == "2":
                     joueur = j2
-                print(f"Le joueur \"{joueur}\" a gagné !")
+                print(f"Le joueur \"{joueur}\" a gagné !\n")
                 logging.info (f"VICTOIRE DU JOUEUR \"{joueur}\" !\n")
-                from j_choix import j_choix
-                return j_choix()
+                return ""
             
             tour += 1
             

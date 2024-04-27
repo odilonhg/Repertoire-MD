@@ -1,65 +1,73 @@
-from lecture_ecriture import joyau
-import sys
 import logging
+import os
+
+from a_repertoire_md.rep_choix import rep_choix
+from b_cdj.j_choix import j_choix
+from c_cfs.fs_choix import fs_choix
+from d_gdt.GDTv2 import gdt_choix
+from e_gdmdp.GDMDPv2 import gdmdp_choix
+from o_options.o_choix import o_choix
 
 def choix():
-    global joyau
+    print ("---- Centre MD ----\n")
     
-    print ("--- Répertoire MD ---\n")
-    
-    print ("1. Gérer les contacts")
-    print ("2. Gérer les favoris")
-    print ("3. Options")
-    print ("4. Arrêter\n")
+    print ("1. Répertoire de Contacts")
+    print ("2. Répertoire de Jeux")
+    print ("3. Centre de Fonction Spéciale")
+    print ("4. Gestionnaire de Tâches")
+    print ("5. Gestionnaire de MDP")
+    print ("6. Options")
+    print ("7. Arrêter\n")
     
     choice = input ("Choix : ")
     
     match choice:
         
         case "1":
-            from c_choix import c_choix
-            return c_choix()
+            os.system ("cls")
+            rep_choix ()
+            os.system ("cls")
+            return choix ()
         
         case "2":
-            from f_choix import f_choix
-            return f_choix()
+            os.system ("cls")
+            j_choix ()
+            os.system ("cls")
+            return choix ()
         
         case "3":
-            from o_choix import o_choix
-            return o_choix()
+            os.system ("cls")
+            fs_choix ()
+            os.system ("cls")
+            return choix ()
         
         case "4":
-            logging.info("FERMETURE PROGRAMME\n")
-            sys.exit("Fermeture du programme")
+            os.system ("cls")
+            gdt_choix ()
+            os.system ("cls")
+            return choix ()
+        
+        case "5":
+            gdmdp_choix ()
+            os.system ("cls")
+            return choix ()
+        
+        case "6":
+            os.system ("cls")
+            o_choix ()
+            os.system ("cls")
+            return choix ()
+        
+        case "7":
+            logging.info ("FERMETURE PROGRAMME\n")
+            os._exit (0)
         
         case "13":
-            print ("\nTu m\'as trouvé...")
-            print ("Moi, c'est JoyO !\n")
-            logging.info("JOYO TROUVE !\n")
-            
-            match joyau:
-                
-                case 0:
-                    print ("Voici un joyau secret, trouves les 2 autres pour débloquer la fonction spéciale !\n")
-                case 1:
-                    print ("Voilà mon joyau secret, trouves le dernier pour débloquer la fonction spéciale !\n")
-                case 2:
-                    print ("Woaw, tu nous as tous trouvé !\n")
-                    print ("Voilà mon joyau secret, pour accéder à la fonction spéciale, tapes \"CodeS\" ici !\n")
-                
-            joyau += 1
-            
-            return choix()
+            os.system ("cls")
+            print ("Tu as trouvé le nombre magique, utilise le partout pour revenir ici !\n")
+            return choix ()
         
-        case "CodeS":
-            if joyau == 3:
-                print ("\nBien joué !")
-                from o_fonction_speciale import o_fonction_speciale
-                return o_fonction_speciale()
-            else:
-                print ("Tu n'as pas trouvé les 3 joyaux sacrés !\nReviens quand tu les auras trouvé !\n")
-                return choix()
-            
         case _:
-            print ("\nChoix impossible...\n")
-            return choix()
+            os.system ("cls")
+            print ("Choix impossible...\n")
+            return choix ()

@@ -1,12 +1,16 @@
-from lecture_ecriture import lecture
+from lecture_ecriture import *
 import logging
 import csv
+import os
 
-def c_rechercher():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+f_rep = "data_contacts.csv"
+liste = []
+
+def c_rechercher ():
+    global liste
+    liste = lecture_csv (f_rep)
     
-    print ("\n--- Rechercher un Contact ---\n")
+    print ("- Rechercher un Contact -\n")
     
     print ("1. Rechercher par prénom ou nom de famille")
     print ("2. Rechercher par numéro de téléphone")
@@ -19,27 +23,37 @@ def c_rechercher():
     match choice:
         
         case "1":
-            return c_nom_prenom()
+            os.system ("cls")
+            return c_nom_prenom ()
         
         case "2":
-            return c_num()
+            os.system ("cls")
+            return c_num ()
         
         case "3":
-            return c_email()
+            os.system ("cls")
+            return c_email ()
         
         case "4":
-            return c_autre()
+            os.system ("cls")
+            return c_autre ()
         
         case "5":
-            from c_choix import c_choix
-            return c_choix()
+            os.system ("cls")
+            return ""
+        
+        case "13":
+            os.system ("cls")
+            from choix import choix
+            return choix()
         
         case _:
+            os.system ("cls")
             print ("\nChoix impossible...")
-            return c_rechercher()
+            return c_rechercher ()
 
-def c_nom_prenom():
-    contact = input ("\nSaisir le prénom ou le nom de famille du contact à trouver : ").capitalize()
+def c_nom_prenom ():
+    contact = input ("Saisir le prénom ou le nom de famille du contact à trouver : ").capitalize()
     logging.info (f"RECHERCHE CONTACT: {contact}\n")
     contact = contact.upper()
     
@@ -55,7 +69,7 @@ def c_nom_prenom():
     
     if contact_trouve != 0:
         
-        print ("\n--- Contact/s Trouvé/s ---")
+        print ("\n- Contact/s Trouvé/s -")
         print ("* = contacts favoris")
         
         for contacts in liste:
@@ -83,16 +97,15 @@ def c_nom_prenom():
                 if email != "":
                     print (f"|   {email}")
         
-        from c_choix import c_choix
-        return c_choix()
+        print ()
+        return ""
     
     else:
-        print ("\nAucun contact trouvé !")
-        from c_choix import c_choix
-        return c_choix()
+        print ("\nAucun contact trouvé !\n")
+        return ""
 
-def c_num():
-    contact = input ("\nSaisir le numéro de téléphone du contact à trouver : ")
+def c_num ():
+    contact = input ("Saisir le numéro de téléphone du contact à trouver : ")
     logging.info (f"RECHERCHE CONTACT: {contact}\n")
     contact_trouve = 0
     
@@ -133,16 +146,15 @@ def c_num():
                 if email != "":
                     print (f"|   {email}")
         
-        from c_choix import c_choix
-        return c_choix()
+        print ()
+        return ""
     
     else:
-        print ("\nAucun contact trouvé !")
-        from c_choix import c_choix
-        return c_choix()
+        print ("\nAucun contact trouvé !\n")
+        return ""
 
-def c_email():
-    contact = input ("\nSaisir l'adresse email du contact à trouver : ")
+def c_email ():
+    contact = input ("Saisir l'adresse email du contact à trouver : ")
     logging.info (f"RECHERCHE CONTACT: {contact}\n")
     contact_trouve = 0
     
@@ -183,16 +195,15 @@ def c_email():
                 if email != "":
                     print (f"|   {email}")
         
-        from c_choix import c_choix
-        return c_choix()
+        print ()
+        return ""
     
     else:
-        print ("\nAucun contact trouvé !")
-        from c_choix import c_choix
-        return c_choix()
+        print ("\nAucun contact trouvé !\n")
+        return ""
 
-def c_autre():
-    contact = input ("\nSaisir la donnée du contact à trouver : ")
+def c_autre ():
+    contact = input ("Saisir la donnée du contact à trouver : ")
     logging.info (f"RECHERCHE CONTACT: {contact}\n")
     contact_trouve = 0
     
@@ -235,10 +246,9 @@ def c_autre():
                 if email != "":
                     print (f"|   {email}")
         
-        from c_choix import c_choix
-        return c_choix()
+        print ()
+        return ""
     
     else:
-        print ("\nAucun contact trouvé !")
-        from c_choix import c_choix
-        return c_choix()
+        print ("\nAucun contact trouvé !\n")
+        return ""

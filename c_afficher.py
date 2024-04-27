@@ -1,13 +1,13 @@
-from lecture_ecriture import lecture
+from lecture_ecriture import *
 import logging
 import csv
 
 
-def c_afficher():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+def c_afficher ():
+    f_rep = "data_contacts.csv"
+    liste = lecture_csv (f_rep)
     
-    print ("\n--- Les Contacts ---")
+    print ("- Les Contacts -")
     print ("* = contacts favoris")
     
     logging.info ("AFFICHE: CONTACTS\n")
@@ -35,5 +35,4 @@ def c_afficher():
         if email != "":
             print (f'|   {email}')
                 
-    from c_choix import c_choix
-    return c_choix()
+    return ""

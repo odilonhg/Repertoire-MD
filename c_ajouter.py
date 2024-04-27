@@ -1,8 +1,9 @@
-from lecture_ecriture import lecture
-from lecture_ecriture import ecriture
+from lecture_ecriture import *
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
+import os
+
+f_rep = "data_contacts.csv"
 
 nom = ""
 prenom = ""
@@ -12,12 +13,12 @@ annee = ""
 num = ""
 email = ""
 
-liste = lecture(f_rep)
+liste = lecture_csv (f_rep)
 
-def c_ajouter():
+def c_ajouter ():
     global nom, prenom, jour, mois, annee, num, email
     
-    print ("\n--- Ajouter un Contact ---\n")
+    print ("- Ajouter un Contact -\n")
     
     print ("0. Annuler !")
     print ("1. Le nom")
@@ -32,22 +33,24 @@ def c_ajouter():
     match choice:
         
         case "0":
-            print ("\nAction annulée !")
-            from c_choix import c_choix
-            return c_choix()
+            return ""
         
         case "1":
             if nom == "":
                 nom = input ("\nRenseigner le nom de famille du contact : ").upper()
+                os.system ("cls")
                 return c_ajouter()
             else:
+                os.system ("cls")
                 return c_ajouter()
         
         case "2":
             if prenom == "":
                 prenom = input ("\nRenseigner le prénom du contact : ").capitalize()
+                os.system ("cls")
                 return c_ajouter()
             else:
+                os.system ("cls")
                 return c_ajouter()
         
         case "3":
@@ -55,34 +58,41 @@ def c_ajouter():
                 jour = input ("\nRenseigner le jour de naissance du contact (de 1 à 31) : ")
                 mois = input ("\nRenseigner le mois de naissance du contact (de 1 à 12) : ")
                 annee = input ("\nRenseigner votre année de naissance : ")
+                os.system ("cls")
                 return c_ajouter()
             else:
+                os.system ("cls")
                 return c_ajouter()
             
         case "4":
             if num == "":
                 num = input ("\nRenseignez le numéro de téléphone du contact (10 caractères) : ")
+                os.system ("cls")
                 return c_ajouter()
             else:
+                os.system ("cls")
                 return c_ajouter()
         
         case "5":
             if email == '':
                 email = input ("\nRenseigner l'adresse email du contact : ")
+                os.system ("cls")
                 return c_ajouter()
             else:
+                os.system ("cls")
                 return c_ajouter()
         
         case "6":
             return fin()
         
         case "13":
-            print ("\nEuh, tu as pas compris...")
-            print ("Moi c'est pas JoyO, OK ?!")
-            return c_ajouter()
+            os.system ("cls")
+            from choix import choix
+            return choix()
         
         case _:
-            print ("\nChoix impossible...")
+            os.system ("cls")
+            print ("Choix impossible...\n")
             return c_ajouter()
 
 def fin():
@@ -102,14 +112,14 @@ def fin():
     else:
         favori = "False"
         
-    c_new = {"nom": nom, "prenom": prenom, "jour": jour, "mois": mois, "annee": annee, "num": num, "email": email, "favori": favori}
+    c_new = {"nom": nom, "prenom": prenom, "jour": jour, "mois": mois, "annee": annee, "num": num, "email": email, "favori": favori, "groupe": ""}
     
     liste.append (c_new)
     
-    ecriture(f_rep, liste)
+    ecriture_csv (f_rep, liste)
     
-    print (f"\nLe contact {nom} {prenom} a été crée !")
+    os.system ("cls")
+    print (f"Le contact {nom} {prenom} a été crée !\n")
     logging.info(f"NOUVEAU CONTACT: {nom} {prenom}\n")
     
-    from c_choix import c_choix
-    return c_choix()
+    return ""

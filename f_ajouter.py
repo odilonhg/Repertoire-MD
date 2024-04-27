@@ -1,14 +1,12 @@
-from lecture_ecriture import lecture
-from lecture_ecriture import ecriture
+from lecture_ecriture import *
 import logging
-import csv
+import os
 
-
-def f_ajouter():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+def f_ajouter ():
+    f_rep = "data_contacts.csv"
+    liste = lecture_csv (f_rep)
     
-    contact = input ("\nSaisir le nom ou le prénom du contact à ajouter aux favoris : ").upper()
+    contact = input ("Saisir le nom ou le prénom du contact à ajouter aux favoris : ").upper()
     
     for contacts in liste:
         
@@ -20,21 +18,19 @@ def f_ajouter():
             prenom = prenom.capitalize()
             
             if favori == "True":
-                print (f"\nLe contact {nom} {prenom} est déjà un contact favori !")
-                from f_choix import f_choix
-                return f_choix()
+                os.system ("cls")
+                print (f"Le contact {nom} {prenom} est déjà un contact favori !\n")
+                return ""
             
-            favori = "True"
-            contacts["favori"] = favori
+            contacts["favori"] = "True"
+            ecriture_csv (f_rep, liste)
             
-            ecriture(f_rep, liste)
-            
-            print (f"\nLe contact {nom} {prenom} à été ajouté aux favoris !")
+            os.system ("cls")
+            print (f"Le contact {nom} {prenom} à été ajouté aux favoris !\n")
             logging.info (f"NOUVEAU FAVORI: {nom} {prenom}\n")
             
-            from f_choix import f_choix
-            return f_choix()
+            return ""
     
-    print ('\nAucun contact trouvé !')
-    from f_choix import f_choix
-    return f_choix()
+    os.system ("cls")
+    print ('Aucun contact trouvé !\n')
+    return ""

@@ -1,12 +1,15 @@
-from lecture_ecriture import lecture
+from lecture_ecriture import lecture_csv
 import logging
-import csv
+import os
+
+liste = []
 
 def f_rechercher():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+    global liste
+    f_rep = "data_contacts.csv"
+    liste = lecture_csv (f_rep)
     
-    print ("\n--- Rechercher un Favori ---\n")
+    print ("- Rechercher un Favori -\n")
     
     print ("1. Rechercher par prénom ou nom de famille")
     print ("2. Rechercher par numéro de téléphone")
@@ -18,24 +21,28 @@ def f_rechercher():
     match choice:
         
         case "1":
+            os.system ("cls")
             return f_nom_prenom()
         
         case "2":
+            os.system ("cls")
             return f_num()
         
         case "3":
+            os.system ("cls")
             return f_email()
         
         case "4":
-            from f_choix import f_choix
-            return f_choix()
+            os.system ("cls")
+            return ""
         
         case _:
+            os.system ("cls")
             print ("\nChoix impossible...")
             return f_rechercher()
 
 def f_nom_prenom():
-    contact = input ("\nSaisir le prénom ou le nom de famille du favori à trouver : ").capitalize()
+    contact = input ("Saisir le prénom ou le nom de famille du favori à trouver : ").capitalize()
     logging.info (f"RECHERCHE FAVORI: {contact}\n")
     contact = contact.upper()
     
@@ -53,7 +60,7 @@ def f_nom_prenom():
     
     if contact_trouve != 0:
         
-        print ("\n--- Favori/s Trouvé/s ---")
+        print ("\n- Favori/s Trouvé/s -")
         
         for contacts in liste:
             
@@ -78,16 +85,14 @@ def f_nom_prenom():
                     if email != "":
                         print (f"|   {email}")
         
-        from f_choix import f_choix
-        return f_choix()
+        return ""
     
     else:
         print ("\nAucun favori trouvé !")
-        from f_choix import f_choix
-        return f_choix()
+        return ""
 
 def f_num():
-    contact = input ("\nSaisir le numéro de téléphone du favori à trouver : ")
+    contact = input ("Saisir le numéro de téléphone du favori à trouver : ")
     logging.info (f"RECHERCHE FAVORI: {contact}\n")
     contact_trouve = 0
     
@@ -102,7 +107,7 @@ def f_num():
     
     if contact_trouve != 0:
         
-        print ("\n--- Favori/s Trouvé/s ---")
+        print ("\n- Favori/s Trouvé/s -")
         
         for contacts in liste:
             
@@ -127,16 +132,14 @@ def f_num():
                     if email != "":
                         print (f"|   {email}")
         
-        from f_choix import f_choix
-        return f_choix()
+        return ""
     
     else:
         print ("\nAucun favori trouvé !")
-        from f_choix import f_choix
-        return f_choix()
+        return ""
 
 def f_email():
-    contact = input ("\nSaisir l'adresse email du favori à trouver : ")
+    contact = input ("Saisir l'adresse email du favori à trouver : ")
     logging.info (f"RECHERCHE FAVORI: {contact}\n")
     contact_trouve = 0
     
@@ -151,7 +154,7 @@ def f_email():
     
     if contact_trouve != 0:
         
-        print ("\n--- Favori/s Trouvé/s ---")
+        print ("\n- Favori/s Trouvé/s -")
         
         for contacts in liste:
             
@@ -176,10 +179,8 @@ def f_email():
                     if email != "":
                         print (f"|   {email}")
         
-        from f_choix import f_choix
-        return f_choix()
+        return ""
     
     else:
         print ("\nAucun favori trouvé !")
-        from f_choix import f_choix
-        return f_choix()
+        return ""

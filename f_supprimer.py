@@ -1,13 +1,12 @@
-from lecture_ecriture import lecture
-from lecture_ecriture import ecriture
+from lecture_ecriture import *
 import logging
-import csv
+import os
 
 def f_supprimer():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+    f_rep = "data_contacts.csv"
+    liste = lecture_csv (f_rep)
     
-    contact = input ("\nSaisir le nom ou le prénom du contact à supprimer des favoris : ").upper()
+    contact = input ("Saisir le nom ou le prénom du contact à supprimer des favoris : ").upper()
     
     for contacts in liste:
         
@@ -22,19 +21,18 @@ def f_supprimer():
                 choice = input (f"\nSupprimer le contact {nom} {prenom} des favoris ? ").upper()
                 
                 if choice == "OUI":
-                    favori = "False"
-                    contacts["favori"] = favori
-                    ecriture(f_rep, liste)
-                    print (f"\nLe contact {nom} {prenom} à été supprimé des favoris !")
+                    contacts["favori"] = "False"
+                    ecriture_csv (f_rep, liste)
+                    os.system ("cls")
+                    print (f"Le contact {nom} {prenom} à été supprimé des favoris !\n")
                     logging.info (f"SUPPRESSION FAVORI: {nom} {prenom}\n")
-                    from f_choix import f_choix
-                    return f_choix()
+                    return ""
                 
                 else:
-                    print ("\nAction annulée !")
-                    from f_choix import f_choix
-                    return f_choix()
+                    os.system ("cls")
+                    print ("Action annulée !\n")
+                    return ""
     
-    print ('\nAucun contact trouvé !')
-    from f_choix import f_choix
-    return f_choix()
+    os.system ("cls")
+    print ('Aucun contact trouvé !\n')
+    return ""

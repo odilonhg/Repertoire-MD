@@ -1,13 +1,14 @@
-from lecture_ecriture import lecture
-from lecture_ecriture import ecriture
+from lecture_ecriture import *
 import logging
 import csv
+import os
 
-def c_modifier():
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+f_rep = "data_contacts.csv"
+
+def c_modifier ():
+    liste = lecture_csv (f_rep)
     
-    print ("\n--- Modifier un Contact ---\n")
+    print ("- Modifier un Contact -\n")
     
     print ("0. Annuler !")
     print ("1. Modifier le nom")
@@ -19,17 +20,16 @@ def c_modifier():
     choice = input ('Choix : ')
     
     if choice == "0":
-        from c_choix import c_choix
-        return c_choix()
-    
-    elif choice == "13":
-        print ("\nT'es sérieux/euse là ?\n")
-        from choix import choix
-        return choix()
+        return ""
     
     elif choice != "1" and choice != "2" and choice != "3" and choice != "4" and choice != "5":
         print ("\nChoix impossible...")
         return c_modifier()
+    
+    elif choice == "13":
+        os.system ("cls")
+        from choix import choix
+        return choix()
     
     contact = input ('\nSaisir le nom ou le prénom du contact : ').upper()
     
@@ -85,13 +85,13 @@ def c_modifier():
                     contacts["email"] = email
                     logging.info (f"MODIFIE: {old_email} -> {email} | ({nom} {prenom})\n")
             
-            ecriture(f_rep, liste)
+            ecriture_csv (f_rep, liste)
             
-            print (f"\nLe contact {old_nom} {old_prenom} a été modifié !")
-            from c_choix import c_choix
-            return c_choix()
+            os.system ("cls")
+            print (f"Le contact {old_nom} {old_prenom} a été modifié !\n")
+            return ""
         
-        else:
-            print ("\nAucun contact trouvé !")
-            from c_choix import c_choix
-            return c_choix()
+        
+    os.system ("cls")
+    print ("Aucun contact trouvé !\n")
+    return ""

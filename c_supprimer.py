@@ -1,17 +1,14 @@
-from lecture_ecriture import joyau
-from lecture_ecriture import lecture
-from lecture_ecriture import ecriture
+from lecture_ecriture import *
 import sys
 import logging
-import csv
+import os
 
+f_rep = "data_contacts.csv"
 
 def c_supprimer():
-    global joyau
-    f_rep = "Repertoire MD.csv"
-    liste = lecture(f_rep)
+    liste = lecture_csv (f_rep)
     
-    contact = input ("\nSaisir le nom ou le prénom du contact à supprimer des favoris : ").upper()
+    contact = input ("Saisir le nom ou le prénom du contact à supprimer : ").upper()
     
     for contacts in range (len (liste)):
         
@@ -21,46 +18,38 @@ def c_supprimer():
         if contact == nom or contact == prenom:
             
             if prenom == "DYLAN":
-                
-                print ("\nOulaaa, doucement !")
-                print ("Salut, moi c'est JoyAU, éternel défenseur de Dylan, le créateur de ce répertoire !")
-                print ("Si jamais tu t'arrêtes là et si tu laisses Dylan tranquille, je t'offres mon joyau !")
-                print ("T'es d'accord ?\n")
+                if nom == "MESNAGE":
+                    
+                    print ("\nVous trouvez une pancarte, elle indique :")
+                    print ("\"Ici se trouvait autrefois JoyAU, le protecteur du Créateur,")
+                    print ("Si vous lisez ceci, ne supprimez pas notre créateur !\"\n")
+                    print ("Le Supprimer ?")
                 
                 choice = input ("Choix : ").upper()
                 
                 if choice == "OUI":
-                    print ("Super !")
-                    print ("Voilà ton joyau !")
-                    print ("A la prochaine !")
-                    
-                    joyau += 1
-                    
-                    from o_choix import o_choix
-                    return o_choix()
+                    os.system ("cls")
+                    print ("Dommage pour toi...")
+                    print (f"\nERREUR CRITIQUE: Le contact {nom} {prenom} n'a pas pu être supprimé des contacts.\n")
+                    logging.info (f"ERREUR SUPPRESSION: Le Créateur.\n")
+                    return ""
                     
                 else:
-                    print ("Dommage pour toi !")
-                    logging.info("MOI, JOYAU, J'AI FERME LE PROGRAMME POUR PROTEGER DYLAN !\n")
-                    sys.exit("FERMETURE FORCEE !")
+                    os.system ("cls")
+                    return ""
                     
             prenom = prenom.capitalize()
             
             choice2 = input (f"\nSupprimer le contact {nom} {prenom} (Action irréversible !) ? ").upper()
             
             if choice2 == "OUI":
+                os.system ("cls")
                 del (liste[contacts])
-                ecriture(f_rep, liste)
-                print (f"\nLe contact {nom} {prenom} à été supprimé des contacts !")
+                ecriture_csv (f_rep, liste)
+                print (f"Le contact {nom} {prenom} à été supprimé des contacts !\n")
                 logging.info (f"SUPPRESSION CONTACT: {nom} {prenom}\n")
-                from o_choix import o_choix
-                return o_choix()
-                
-            else:
-                print ("\nAction annulée !")
-                from o_choix import o_choix
-                return o_choix()
-                
-    print ('\nAucun contact trouvé !')
-    from o_choix import o_choix
-    return o_choix()
+                return ""
+    
+    os.system ("cls")
+    print ("Aucun contact trouvé !\n")
+    return ""

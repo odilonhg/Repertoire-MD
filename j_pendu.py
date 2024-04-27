@@ -1,8 +1,8 @@
-from lecture_ecriture import lecture
-from lecture_ecriture import joyau
+from lecture_ecriture import *
 from pickle import *
 import random
 import logging
+import os
 
 choice2 = "NONE"
 mot = "NONE"
@@ -16,20 +16,16 @@ def j_pendu():
     global choice2
     logging.info("LANCEMENT JEU: Le Pendu\n")
     
-    print ("\nOh, un joueur !")
-    print ("Je me présente, je suis JoyEAU, gardien du joyau de la puissance.")
-    print ("Tu le veux ? Et bien gagnes au Pendu !")
-    
-    print ("\n--- Le Pendu ---\n")
+    print ("-- Le Pendu --\n")
     
     print ("1. Les + Beaux Prénoms")
     print ("2. Le Vocabulaire en NSI")
     print ("3. Les Mots et Objets de tous les jours")
     print ("4. Les Instruments de Musique")
     print ("5. Les Contacts de ton Répertoire")
-    print ("6. Retour aux choix des jeux")
+    print ("6. Retour aux choix des jeux\n")
     
-    choice2 = input ("\nChoix : ")
+    choice2 = input ("Choix : ")
     
     if choice2 == '1':
         return le_pendu_lancement()
@@ -47,8 +43,8 @@ def j_pendu():
         return le_pendu_lancement()
     
     elif choice2 == '6':
-        from c_options.jeux.choix_j import choix_j
-        return choix_j()
+        os.system ("cls")
+        return ""
 
 def affichage_mot(mot, lettres_trouvees):
     
@@ -64,7 +60,7 @@ def affichage_mot(mot, lettres_trouvees):
 
 def le_pendu_lancement():
     prenoms_contacts_liste = []
-    dico = lecture("Repertoire MD.csv")
+    dico = lecture_csv ("data_contacts.csv")
     
     for contacts in dico:
         
@@ -94,51 +90,56 @@ def le_pendu_lancement():
     while tentatives_max >= 0:
         
         affichage = affichage_mot (mot, lettres_trouvees)
-        print (f"\nMot : {affichage}\n")
+        print (f"Mot : {affichage}\n")
         
         choice = input ("Saisir une lettre : ")
         
         if len (choice) == 1 and choice.isalpha() == True:
             
             if choice in lettres_trouvees:
-                print ("\nTu as déjà trouvé cette lettre, essayes encore !")
+                os.system ("cls")
+                print ("Tu as déjà trouvé cette lettre, essayes encore !\n")
             
             elif choice.upper() in mot.upper():
-                print (f"\nBien joué, tu as trouvé la lettre \"{choice}\" !")
+                os.system ("cls")
+                print (f"Bien joué, tu as trouvé la lettre \"{choice}\" !\n")
                 lettres_trouvees.append(choice)
             
             else:
                 tentatives_max -= 1
                 tentatives += 1
-                print (f"\nCette lettre n\'est pas dans le mot... Plus que {tentatives_max} tentatives !")
+                os.system ("cls")
+                print (f"Cette lettre n\'est pas dans le mot... Plus que {tentatives_max} tentatives !\n")
         
         else:
-            print ("\nTu n'as pas tappé une lettre, essaies encore !")
+            os.system ("cls")
+            print ("Tu n'as pas tappé une lettre, essaies encore !")
         
         if set(mot.lower()) == set(lettres_trouvees):
             
             if choice2 == "1" or choice2 == "5":
-                print (f"\nFélicitations, tu as trouvé le prénom \"{mot}\" en seulement {tentatives_max} tentatives ({tentatives} tentatives échouées !\nVoilà mon joyau...")
+                os.system ("cls")
+                print (f"Félicitations, tu as trouvé le prénom \"{mot}\" en seulement {tentatives_max} tentatives ({tentatives} tentatives échouées !\n")
             elif choice2 == '2' or choice2 == '3' or choice2 == '4':
-                print (f"\nFélicitations, tu as trouvé le mot \"{mot}\" en seulement {tentatives_max} tentatives ({tentatives} tentatives échouées !\nVoilà mon joyau...")
+                os.system ("cls")
+                print (f"Félicitations, tu as trouvé le mot \"{mot}\" en seulement {tentatives_max} tentatives ({tentatives} tentatives échouées !\n")
             
-            joyau +=1
-            
-            from j_choix import j_choix
-            return j_choix()
+            return ""
         
         if tentatives_max == 0:
             if choice2 == "1" or choice2 == "5":
-                print (f'\nDommage... Tu n\'as pas trouvé le prénom "{mot}"...')
+                os.system ("cls")
+                print (f'Dommage... Tu n\'as pas trouvé le prénom "{mot}"...\n')
             
             elif choice2 == '2':
-                print (f'\nDommage... Tu n\'as pas trouvé le mot "{mot}"... (t\'es même pas un vrai nerd bouuuu)')
+                print (f'Dommage... Tu n\'as pas trouvé le mot "{mot}"... (t\'es même pas un vrai nerd bouuuu)\n')
             
             elif choice2 == '3':
-                print (f'\nDommage... Tu n\'as pas trouvé le mot "{mot}"...')
+                os.system ("cls")
+                print (f'\nDommage... Tu n\'as pas trouvé le mot "{mot}"...\n')
             
             elif choice2 == '4':
-                print (f'\nDommage... Tu n\'as pas trouvé l\'instrument choisi ({mot})...')
+                os.system ("cls")
+                print (f'\nDommage... Tu n\'as pas trouvé l\'instrument choisi ({mot})...\n')
             
-            from j_choix import j_choix
-            return j_choix()
+            return ""
