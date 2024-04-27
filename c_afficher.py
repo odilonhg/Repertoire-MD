@@ -1,10 +1,11 @@
 from lecture_ecriture import lecture
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
 
-def c_afficher(liste = liste):
+
+def c_afficher():
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     print ("\n--- Les Contacts ---")
     print ("* = contacts favoris")

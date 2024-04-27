@@ -1,6 +1,8 @@
+from lecture_ecriture import lecture
 import os
 import logging
 f_log = "log.txt"
+f_rep = "Repertoire MD.csv"
 
 if os.path.exists (f_log) == False:
     

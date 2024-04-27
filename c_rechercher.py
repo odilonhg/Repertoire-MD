@@ -1,10 +1,10 @@
 from lecture_ecriture import lecture
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
 
 def c_rechercher():
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     print ("\n--- Rechercher un Contact ---\n")
     

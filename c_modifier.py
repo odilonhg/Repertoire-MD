@@ -2,11 +2,10 @@ from lecture_ecriture import lecture
 from lecture_ecriture import ecriture
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
 
 def c_modifier():
-    global liste, f_rep
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     print ("\n--- Modifier un Contact ---\n")
     

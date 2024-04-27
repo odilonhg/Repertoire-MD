@@ -1,5 +1,4 @@
 import logging
-import csv
 
 def ecriture(rep,liste,delimiter=";"):
     
@@ -11,8 +10,8 @@ def ecriture(rep,liste,delimiter=";"):
             ligne = ";".join (liste[cle].values()) + "\n"
             csvfile.write (ligne)
 
-liste = [{"nom": "MESNAGE", "prenom": "Dylan", "jour": "13", "mois": "10", "annee": "2007", "num": "0665218476", "email": "dmesnage.hg@gmail.com", "favori": "True"},
-         {"nom": "GORLAS", "prenom": "Maxime", "jour": "", "mois": "", "annee": "", "num": "", "email": "", "favori": "True"}]
+liste = [{"nom": "MESNAGE", "prenom": "Dylan", "jour": "13", "mois": "10", "annee": "2007", "num": "", "email": "", "favori": "True"},
+         {"nom": "GORLAS", "prenom": "Maxime", "jour": "16", "mois": "08", "annee": "2007", "num": "", "email": "", "favori": "True"}]
 
 nom = ""
 prenom = ""
@@ -27,7 +26,7 @@ f_rep = "Repertoire MD.csv"
 
 def depart():
     
-    print ("Bienvenue dans le MD_Répertoire !\nCréons votre contact dès maintenant !")
+    print ("Bienvenue dans le Répertoire MD !\nCréons votre contact dès maintenant !")
         
     return d_choix()
 
@@ -35,14 +34,14 @@ def d_choix():
     
     global nom, prenom, jour, mois, annee, num, email, favori
     
-    print ("\nQue souhaitez-vous ajouter ?\n")
+    print ("\nQue souhaitez-vous lui ajouter ?\n")
     
-    print ("1. Le nom")
-    print ("2. Le prénom")
-    print ("3. La date de naissance")
-    print ("4. Le numéro de téléphone")
-    print ("5. L'adresse email")
-    print ("6. Finir le contact !\n")
+    print ("1. Mon nom de famille")
+    print ("2. Mon prénom")
+    print ("3. Ma date de naissance")
+    print ("4. Mon numéro de téléphone")
+    print ("5. Mon adresse email")
+    print ("6. J'ai fini !\n")
     
     choice = input ("Choix : ")
     
@@ -126,7 +125,8 @@ def fin():
     
     ecriture(f_rep, liste) 
     
-    print ("\nBien, bon voyage dans notre répertoire !\n")
-    logging.info(f"NOUVEAU CONTACT: {nom} {prenom}\n")
+    print ("\nBien, bon voyage dans notre répertoire !")
+    print ("N'hésitez pas à tester nos jeux ;)\n")
+    logging.info(f"CONTACT DU PROPRIETAIRE CREE: {nom} {prenom}\n")
     from choix import choix
     return choix()

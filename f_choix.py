@@ -29,6 +29,7 @@ def f_choix():
             return f_supprimer()
         
         case "5":
+            print ()
             from choix import choix
             return choix()
         

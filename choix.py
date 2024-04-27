@@ -52,9 +52,13 @@ def choix():
             return choix()
         
         case "CodeS":
-            print ("Bien joué !\n")
-            from o_fonction_speciale import o_fonction_speciale
-            return o_fonction_speciale()
+            if joyau == 3:
+                print ("\nBien joué !")
+                from o_fonction_speciale import o_fonction_speciale
+                return o_fonction_speciale()
+            else:
+                print ("Tu n'as pas trouvé les 3 joyaux sacrés !\nReviens quand tu les auras trouvé !\n")
+                return choix()
             
         case _:
             print ("\nChoix impossible...\n")

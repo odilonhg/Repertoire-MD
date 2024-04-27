@@ -19,6 +19,7 @@ def o_choix():
             return j_choix()
         
         case "3":
+            print ()
             from choix import choix
             return choix()
         

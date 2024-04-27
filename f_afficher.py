@@ -1,11 +1,10 @@
 from lecture_ecriture import lecture
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
 
 def f_afficher():
-    global liste
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     print ("\n--- Les Favoris ---")
     

@@ -2,11 +2,10 @@ from lecture_ecriture import lecture
 from lecture_ecriture import ecriture
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
 
 def f_supprimer():
-    global liste
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     contact = input ("\nSaisir le nom ou le prénom du contact à supprimer des favoris : ").upper()
     

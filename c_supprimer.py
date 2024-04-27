@@ -4,11 +4,12 @@ from lecture_ecriture import ecriture
 import sys
 import logging
 import csv
-f_rep = "Repertoire MD.csv"
-liste = lecture(f_rep)
+
 
 def c_supprimer():
-    global liste, joyau
+    global joyau
+    f_rep = "Repertoire MD.csv"
+    liste = lecture(f_rep)
     
     contact = input ("\nSaisir le nom ou le prénom du contact à supprimer des favoris : ").upper()
     
@@ -26,7 +27,7 @@ def c_supprimer():
                 print ("Si jamais tu t'arrêtes là et si tu laisses Dylan tranquille, je t'offres mon joyau !")
                 print ("T'es d'accord ?\n")
                 
-                choice = ("Choix : ").upper()
+                choice = input ("Choix : ").upper()
                 
                 if choice == "OUI":
                     print ("Super !")
@@ -50,7 +51,7 @@ def c_supprimer():
             if choice2 == "OUI":
                 del (liste[contacts])
                 ecriture(f_rep, liste)
-                print (f"\nLe contact {nom} {prenom} à été supprimé des favoris !")
+                print (f"\nLe contact {nom} {prenom} à été supprimé des contacts !")
                 logging.info (f"SUPPRESSION CONTACT: {nom} {prenom}\n")
                 from o_choix import o_choix
                 return o_choix()
